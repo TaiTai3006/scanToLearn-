@@ -3,26 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { collection, getDocs } from "firebase/firestore"; 
 import { storage } from './firebaseConfig';
 import { useEffect } from 'react';
-
+import { Provider } from 'react-redux';
+import store from './redux/store';
 export default function App() {
-  const fetchData = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(storage, "hihi"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  useEffect(()=>{
-fetchData()
-  },[])
+ 
   return (
+    <Provider store={store}>
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
+    </Provider>
   );
 }
 
