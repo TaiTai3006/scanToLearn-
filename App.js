@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { collection, getDocs } from "firebase/firestore"; 
 import { storage } from './firebaseConfig';
 import { useEffect } from 'react';
-<<<<<<< HEAD
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -81,18 +80,5 @@ export default function App() {
         <Tab.Screen name={settingsName} children={() => <DummyScreen screenName={settingsName} />} />
       </Tab.Navigator>
     </NavigationContainer>
-=======
-import { Provider } from 'react-redux';
-import store from './redux/store';
-export default function App() {
- 
-  return (
-    <Provider store={store}>
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-    </Provider>
->>>>>>> c6197b1651afef21fe2611a6201c188094775c3f
-  );
+  )
 }
