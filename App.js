@@ -7,7 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import homeScreen from './screen/homeScreen';
 
 
 const homeName = "Home";
@@ -69,15 +69,15 @@ export default function App() {
           headerShown: false
         })}
       >
-        <Tab.Screen name={homeName} children={() => <DummyScreen screenName={homeName} />} />
-        <Tab.Screen name={searchName} children={() => <DummyScreen screenName={searchName} />} />
+        <Tab.Screen name={homeName} component={homeScreen} />
+        <Tab.Screen name={searchName} component={homeScreen} />
         <Tab.Screen
           name={addName}
-          children={() => <DummyScreen screenName={addName} />}
+          component={homeScreen}
           options={{ tabBarLabelStyle: { display: "none" } }}
         />
-        <Tab.Screen name={folderName} children={() => <DummyScreen screenName={folderName} />} />
-        <Tab.Screen name={settingsName} children={() => <DummyScreen screenName={settingsName} />} />
+        <Tab.Screen name={folderName} component={homeScreen} />
+        <Tab.Screen name={settingsName} component={homeScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )
