@@ -20,7 +20,7 @@ const TermCard = () => {
           <Image
             style={styles.tinyLogo}
             source={{
-              uri: "https://reactnative.dev/img/tiny_logo.png",
+              uri: "https://meetingtomorrow.com/wp-content/uploads/2019/08/TextDocument.png",
             }}
           />
 
