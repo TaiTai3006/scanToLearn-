@@ -14,10 +14,10 @@ const windowWidth = Dimensions.get("window").width;
 import { useNavigation } from "@react-navigation/native";
 // const windowHeight = Dimensions.get("height").height
 const TermCard = ({ folderType = false }) => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handleCardPress = () => {
-    // navigation.navigate('PreviewScreen');
+    navigation.navigate('PreviewScreen');
   };
   return (
     <View>

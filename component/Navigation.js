@@ -8,16 +8,13 @@ import homeScreen from "../screen/homeScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheetModal from './BottomSheetModal';
 import PreviewScreen from "../screen/PreviewScreen";
-<<<<<<< HEAD
 import TestScreen from "../screen/TestScreen";
 import QuestionSelectionScreen from "../screen/QuestionSelectionScreen";
 
 import TestResult from "../screen/TestResult";
 
-=======
 import LibraryScreen from "../screen/LibraryScreen";
 import CourseScreen from "../screen/CourseScreen";
->>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
 const homeName = "Home";
 const searchName = "Search";
 const settingsName = "Settings";
@@ -110,13 +107,10 @@ const NavBar = () => {
       })}
     >
       <Tab.Screen name={homeName} component={homeScreen} />
-<<<<<<< HEAD
-      <Tab.Screen name={searchName} component={TestScreen} />
-      <Tab.Screen
-=======
+      {/* <Tab.Screen name={searchName} component={TestScreen} /> */}
+      
       <Tab.Screen name={searchName} component={PreviewScreen} />
         <Tab.Screen
->>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
           name={addName}
           component={DummyScreen}
           listeners={{
@@ -147,13 +141,10 @@ export const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="navbar" component={NavBar} />
         <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
-<<<<<<< HEAD
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="QuestionSelectionScreen" component={QuestionSelectionScreen} />
           <Stack.Screen name="TestResult" component={TestResult} />
-=======
         <Stack.Screen name="CourseScreen" component={CourseScreen} />
->>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
       </Stack.Navigator>
       
     </NavigationContainer>

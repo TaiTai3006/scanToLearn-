@@ -7,8 +7,8 @@ import SelectFolderScreen from "./screen/SelectFolderScreen";
 export default function App() {
   return (
     <Provider store={store}>
-     {/* <Navigation/> */}
-     <SelectFolderScreen/>
+     <Navigation/>
+     {/* <SelectFolderScreen/> */}
     </Provider>
   );
 }
