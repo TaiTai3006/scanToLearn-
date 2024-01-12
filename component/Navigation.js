@@ -6,7 +6,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import homeScreen from "../screen/homeScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheetModal from './BottomSheetModal'
+import BottomSheetModal from './BottomSheetModal';
+import PreviewScreen from "../screen/PreviewScreen";
+import LibraryScreen from "../screen/LibraryScreen";
 import CourseScreen from "../screen/CourseScreen";
 const homeName = "Home";
 const searchName = "Search";
@@ -100,7 +102,7 @@ const NavBar = () => {
       })}
     >
       <Tab.Screen name={homeName} component={homeScreen} />
-      <Tab.Screen name={searchName} component={homeScreen} />
+      <Tab.Screen name={searchName} component={PreviewScreen} />
         <Tab.Screen
           name={addName}
           component={DummyScreen}
@@ -112,8 +114,8 @@ const NavBar = () => {
           }}
           options={{ tabBarLabelStyle: { display: "none" } }}
       />
-      <Tab.Screen name={folderName} component={homeScreen} />
-      <Tab.Screen name={settingsName} component={homeScreen} />
+      <Tab.Screen name={folderName} component={LibraryScreen} />
+      <Tab.Screen name={settingsName} component={PreviewScreen} />
   
     </Tab.Navigator>
         <BottomSheetModal
@@ -131,6 +133,7 @@ export const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="navbar" component={NavBar} />
+        <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
         <Stack.Screen name="CourseScreen" component={CourseScreen} />
       </Stack.Navigator>
      

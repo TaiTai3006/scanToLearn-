@@ -1,19 +1,22 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
-import { Avatar } from "react-native-paper";
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Chip } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+
 const windowWidth = Dimensions.get("window").width;
+
 const FolderCard = () => {
+  const navigation = useNavigation();
+
+  const handleCardPress = () => {
+    // Navigate to the PreviewScreen when the card is pressed
+    console.log('Navigation Object:', navigation);
+    navigation.navigate('PreviewScreen');
+  };
+
   return (
     <View>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={handleCardPress}>
         <View style={styles.title}>
           <Ionicons
             style={{ marginRight: 10 }}
@@ -39,6 +42,7 @@ const FolderCard = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   card: {
     height: windowWidth * 0.4,
