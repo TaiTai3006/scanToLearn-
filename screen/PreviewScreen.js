@@ -33,6 +33,10 @@ const PreviewScreen = () => {
   const handleScrollNext = () => {
     setCurrentPage((currentPage) => currentPage + 1);
   };
+  const handleCardPress = () => {
+    // Navigate to PreviewScreen when the card is pressed
+    navigation.navigate("TestScreen");
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "#0A092B" }}>
       <View style={styles.header_container}>
@@ -65,7 +69,7 @@ const PreviewScreen = () => {
         <View style={[styles.chip_container]}>
           <Text style={styles.text_title}>Tên học phần</Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("YourScreenName")}
+            onPress={() => navigation.navigate("TestScreen")}
           >
             <Chip
             icon={() => <Ionicons name="document" color="#CACEE4" size ={18}/>}
@@ -77,7 +81,7 @@ const PreviewScreen = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("YourScreenName")}
+             onPress={() => navigation.navigate("QuestionSelectionScreen")}
           >
             <Chip
               icon={() => <Ionicons name="book" color="#CACEE4" size ={18}/>}

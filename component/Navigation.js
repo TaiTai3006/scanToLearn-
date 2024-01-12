@@ -8,6 +8,10 @@ import homeScreen from "../screen/homeScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheetModal from './BottomSheetModal';
 import PreviewScreen from "../screen/PreviewScreen";
+import TestScreen from "../screen/TestScreen";
+import QuestionSelectionScreen from "../screen/QuestionSelectionScreen";
+
+import TestResult from "../screen/TestResult";
 
 const homeName = "Home";
 const searchName = "Search";
@@ -79,7 +83,7 @@ const NavBar = () => {
       })}
     >
       <Tab.Screen name={homeName} component={homeScreen} />
-      <Tab.Screen name={searchName} component={PreviewScreen} />
+      <Tab.Screen name={searchName} component={TestScreen} />
       <Tab.Screen
           name={addName}
           component={DummyScreen}
@@ -110,8 +114,11 @@ export const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="navbar" component={NavBar} />
         <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+        <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="QuestionSelectionScreen" component={QuestionSelectionScreen} />
+          <Stack.Screen name="TestResult" component={TestResult} />
       </Stack.Navigator>
-     
+      
     </NavigationContainer>
     </GestureHandlerRootView>
   );
