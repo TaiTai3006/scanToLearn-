@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const BottomSheetModal = ({ isVisible, onClose, onTakePhoto, onSelectImage }) => {
+const BottomSheetModal = ({ isVisible, onClose, options , onSelectImage }) => {
+
+
   const bottomSheetRef = useRef(null);
 
   // Close Bottom Sheet
@@ -15,7 +17,6 @@ const BottomSheetModal = ({ isVisible, onClose, onTakePhoto, onSelectImage }) =>
   // Handlers for the actions
   const handleTakePhoto = () => {
     closeBottomSheet();
-    onTakePhoto();
   };
 
   const handleSelectImage = () => {
@@ -24,12 +25,12 @@ const BottomSheetModal = ({ isVisible, onClose, onTakePhoto, onSelectImage }) =>
   };
 
  
-  const renderItem = (iconName, text, onPress) => (
+  const renderItem = useCallback(({ iconName, text, onPress }) => (
     <TouchableOpacity style={styles.item} onPress={onPress}>
       <Icon name={iconName} size={24} color="#ffffff" />
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
-  );
+  ), []);
 
 
   const snapPoints = useMemo(() => (isVisible ? ['30%', '50%'] : ['10%']), [isVisible]);
@@ -50,9 +51,8 @@ const BottomSheetModal = ({ isVisible, onClose, onTakePhoto, onSelectImage }) =>
       handleComponent={CustomHandle} 
 
     >
-      <View style={styles.container}>
-        {renderItem("folder", "Học phần", handleTakePhoto)}
-        {renderItem("file-tray-stacked", "Thư mục", handleSelectImage)}
+     <View style={styles.container}>
+        {options.map((option, index) => renderItem(option))}
       </View>
     </BottomSheet>
   );

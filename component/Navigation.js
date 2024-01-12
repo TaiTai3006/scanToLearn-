@@ -8,19 +8,26 @@ import homeScreen from "../screen/homeScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheetModal from './BottomSheetModal';
 import PreviewScreen from "../screen/PreviewScreen";
+<<<<<<< HEAD
 import TestScreen from "../screen/TestScreen";
 import QuestionSelectionScreen from "../screen/QuestionSelectionScreen";
 
 import TestResult from "../screen/TestResult";
 
+=======
+import LibraryScreen from "../screen/LibraryScreen";
+import CourseScreen from "../screen/CourseScreen";
+>>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
 const homeName = "Home";
 const searchName = "Search";
 const settingsName = "Settings";
 const addName = "Add";
 const folderName = "Library";
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 // Dummy Screen Component
 const DummyScreen = ({ screenName }) => (
@@ -30,11 +37,31 @@ const DummyScreen = ({ screenName }) => (
 );
 const NavBar = () => {
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-
+  const navigation = useNavigation();
   // Toggle Bottom Sheet
   const toggleBottomSheet = () => {
     setIsBottomSheetVisible(!isBottomSheetVisible);
   };
+  
+  const bottomSheetOptions = [
+    {
+      iconName: "folder",
+      text: "Học phần",
+      onPress: () => {
+        // Logic for taking photo
+        setIsBottomSheetVisible(false);
+        navigation.navigate('CourseScreen'); 
+      }
+    },
+    {
+      iconName: "file-tray-stacked",
+      text: "Thư mục",
+      onPress: () => {
+        // Logic for selecting image from library
+        setIsBottomSheetVisible(false);
+      }
+    },
+  ];
   return (
     <>
     <Tab.Navigator
@@ -83,8 +110,13 @@ const NavBar = () => {
       })}
     >
       <Tab.Screen name={homeName} component={homeScreen} />
+<<<<<<< HEAD
       <Tab.Screen name={searchName} component={TestScreen} />
       <Tab.Screen
+=======
+      <Tab.Screen name={searchName} component={PreviewScreen} />
+        <Tab.Screen
+>>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
           name={addName}
           component={DummyScreen}
           listeners={{
@@ -94,15 +126,16 @@ const NavBar = () => {
             },
           }}
           options={{ tabBarLabelStyle: { display: "none" } }}
-        />
-      <Tab.Screen name={folderName} component={homeScreen} />
+      />
+      <Tab.Screen name={folderName} component={LibraryScreen} />
       <Tab.Screen name={settingsName} component={PreviewScreen} />
   
     </Tab.Navigator>
-    <BottomSheetModal
-    isVisible={isBottomSheetVisible}
-    onClose={() => setIsBottomSheetVisible(false)}
-  />
+        <BottomSheetModal
+      isVisible={isBottomSheetVisible}
+      onClose={() => setIsBottomSheetVisible(false)}
+      options={bottomSheetOptions}
+    />
   </>
   );
 };
@@ -114,9 +147,13 @@ export const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="navbar" component={NavBar} />
         <Stack.Screen name="PreviewScreen" component={PreviewScreen} />
+<<<<<<< HEAD
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="QuestionSelectionScreen" component={QuestionSelectionScreen} />
           <Stack.Screen name="TestResult" component={TestResult} />
+=======
+        <Stack.Screen name="CourseScreen" component={CourseScreen} />
+>>>>>>> 1688bf0d8d335846f8ed5cf00bdb19bcfcd982ea
       </Stack.Navigator>
       
     </NavigationContainer>
