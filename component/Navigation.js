@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
-
+import React, { useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import homeScreen from "../screen/homeScreen";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BottomSheetModal from './BottomSheetModal'
 
 const homeName = "Home";
 const searchName = "Search";
@@ -22,7 +24,14 @@ const DummyScreen = ({ screenName }) => (
   </View>
 );
 const NavBar = () => {
+  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+
+  // Toggle Bottom Sheet
+  const toggleBottomSheet = () => {
+    setIsBottomSheetVisible(!isBottomSheetVisible);
+  };
   return (
+    <>
     <Tab.Navigator
       initialRouteName={homeName}
       screenOptions={({ route }) => ({
@@ -71,22 +80,37 @@ const NavBar = () => {
       <Tab.Screen name={homeName} component={homeScreen} />
       <Tab.Screen name={searchName} component={homeScreen} />
       <Tab.Screen
-        name={addName}
-        component={homeScreen}
-        options={{ tabBarLabelStyle: { display: "none" } }}
-      />
+          name={addName}
+          component={DummyScreen}
+          listeners={{
+            tabPress: (e) => {
+              e.preventDefault();
+              toggleBottomSheet();
+            },
+          }}
+          options={{ tabBarLabelStyle: { display: "none" } }}
+        />
       <Tab.Screen name={folderName} component={homeScreen} />
       <Tab.Screen name={settingsName} component={homeScreen} />
+  
     </Tab.Navigator>
+    <BottomSheetModal
+    isVisible={isBottomSheetVisible}
+    onClose={() => setIsBottomSheetVisible(false)}
+  />
+  </>
   );
 };
 
 export const Navigation = () => {
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="navbar" component={NavBar} />
       </Stack.Navigator>
+     
     </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
