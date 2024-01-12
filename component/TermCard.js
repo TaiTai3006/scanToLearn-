@@ -11,11 +11,18 @@ import { Avatar } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Chip } from "react-native-paper";
 const windowWidth = Dimensions.get("window").width;
+import { useNavigation } from "@react-navigation/native";
 // const windowHeight = Dimensions.get("height").height
 const TermCard = () => {
+  const navigation = useNavigation();
+
+  const handleCardPress = () => {
+   
+    navigation.navigate('PreviewScreen');
+  };
   return (
     <View>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={handleCardPress}>
         <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
           <Image
             style={styles.tinyLogo}
