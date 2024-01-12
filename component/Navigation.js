@@ -8,6 +8,7 @@ import homeScreen from "../screen/homeScreen";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheetModal from './BottomSheetModal';
 import PreviewScreen from "../screen/PreviewScreen";
+import LibraryScreen from "../screen/LibraryScreen";
 
 const homeName = "Home";
 const searchName = "Search";
@@ -91,7 +92,7 @@ const NavBar = () => {
           }}
           options={{ tabBarLabelStyle: { display: "none" } }}
         />
-      <Tab.Screen name={folderName} component={homeScreen} />
+      <Tab.Screen name={folderName} component={LibraryScreen} />
       <Tab.Screen name={settingsName} component={PreviewScreen} />
   
     </Tab.Navigator>
