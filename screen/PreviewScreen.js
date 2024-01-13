@@ -15,8 +15,7 @@ import {
   } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useRef } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
-// import { Icon } from 'react-native-elements'
+
 import PreviewCard from "../component/PreviewCard";
 import VideoCard from "../component/VideoCard";
 import RelatedCard from "../component/RelatedCard";
@@ -28,7 +27,7 @@ const PreviewScreen = () => {
     // Navigate back to the previous screen
     navigation.goBack();
   };
-  const [isHeaderVisible, setHeaderVisible] = useState(true);
+  
   const [currentPage, setCurrentPage] = useState(0);
   const handleScrollNext = () => {
     setCurrentPage((currentPage) => currentPage + 1);
@@ -41,15 +40,15 @@ const PreviewScreen = () => {
     <View style={{ flex: 1, backgroundColor: "#0A092B" }}>
       <View style={styles.header_container}>
         <TouchableOpacity onPress={handleGoBack}>
-          <Icon
+          <Ionicons
             style={[styles.icon, { color: "#ffffff" }]}
-            name="arrow-left"
-            size={20}
+            name="arrow-back"
+            size={25}
           />
         </TouchableOpacity>
 
         <Text style={styles.text}>Preview</Text>
-        <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={18} />
+        <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={25} />
       </View>
       <ScrollView
         style={styles.body_container}

@@ -91,7 +91,7 @@ const TestResult = ({ route }) => {
                   backgroundColor: "#18AE79",
                 }}
               />
-              <Text style={styles.legendText}>{`${scorePercentage.toFixed(2)} % Correct`} </Text>
+              <Text style={styles.legendText}>{`${scorePercentage.toFixed(0)} % Correct`} </Text>
             </View>
             <View style={styles.legendItem}>
               <View
@@ -100,7 +100,7 @@ const TestResult = ({ route }) => {
                   backgroundColor: "#D02500",
                 }}
               />
-              <Text style={styles.legendText_incorrect}>{`${100-scorePercentage.toFixed(2)} % Incorrect`}</Text>
+              <Text style={styles.legendText_incorrect}>{`${100-scorePercentage.toFixed(0)} % Incorrect`}</Text>
             </View>
           </View>
         </View>
