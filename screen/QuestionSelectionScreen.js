@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const QuestionSelectionScreen = () => {
   const navigation = useNavigation();
@@ -17,18 +18,20 @@ const QuestionSelectionScreen = () => {
     navigation.goBack();
   };
 
-  const [numberOfQuestions, setNumberOfQuestions] = useState(20);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(5);
   const [trueFalse, setTrueFalse] = useState(true);
   const [multipleChoice, setMultipleChoice] = useState(false);
   const [fillInTheBlank, setFillInTheBlank] = useState(false);
+  const increaseNumberOfQuestions = () => {
+    if (numberOfQuestions < 20) {
+      setNumberOfQuestions(numberOfQuestions + 1);
+    }
+  };
+  
   const decreaseNumberOfQuestions = () => {
     if (numberOfQuestions > 1) {
       setNumberOfQuestions(numberOfQuestions - 1);
     }
-  };
-
-  const increaseNumberOfQuestions = () => {
-    setNumberOfQuestions(numberOfQuestions + 1);
   };
   const startQuiz = () => {
     // Pass selected options to the next screen
@@ -45,13 +48,14 @@ const QuestionSelectionScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header_container}>
       <TouchableOpacity onPress={handleGoBack}>
-        <Icon
-          style={[styles.icon, { color: "#ffffff" }]}
-          name="close"
-          size={25}
-        />
+        <Ionicons style={ { color: "#fff" }} name="close" size={25} />
       </TouchableOpacity>
+
+
+        
+      </View>
       <Text style={styles.title}>Quiz Configuration</Text>
       <View
         style={{
@@ -60,7 +64,7 @@ const QuestionSelectionScreen = () => {
           justifyContent: "space-between",
         }}
       >
-        <Text style={styles.text}>Number of Questions:</Text>
+        <Text style={styles.text}>Number of Questions</Text>
         <View
           style={{
             flexDirection: "row",
@@ -80,20 +84,20 @@ const QuestionSelectionScreen = () => {
               size={20}
               color="#4255FF"
               onPress={increaseNumberOfQuestions}
-              style={styles.icon}
+              style={styles.icon_top}
             />
             <Icon
               name="sort-down"
               size={20}
               color="#4255FF"
               onPress={decreaseNumberOfQuestions}
-              style={styles.icon}
+              style={styles.icon_down}
             />
           </View>
         </View>
       </View>
       <View style={styles.divider}></View>
-      <Text style={styles.label}>Question Types:</Text>
+      <Text style={styles.label}>Question Types</Text>
       <View style={styles.switchContainer}>
         <Text style={styles.text}>True/False</Text>
         <Switch
@@ -141,6 +145,19 @@ const styles = StyleSheet.create({
     // margin: 5,
     backgroundColor: "#0A092B"
   },
+  header_container: {
+    color: "#ffffff",
+    borderBottomColor: "#4B5673",
+    borderBottomWidth : 3,
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    paddingBottom: 10,
+    justifyContent: "flex-start",
+    flexDirection: "row",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
@@ -167,10 +184,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  icon: {
+  icon_down: {
     // marginLeft: 10,
-    marginBottom: 0,
-    padding: 10, // Add some space between the icons
+    marginBottom: 10,
+    padding: 3,
+    margin: 5 // Add some space between the icons
+  },
+  icon_top: {
+    // marginLeft: 10,
+    marginBottom: -10,
+    padding: 3,
+    margin: 5 // Add some space between the icons
   },
   switchContainer: {
     flexDirection: "row",
@@ -189,6 +213,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    padding: 10
   },
   divider: {
     borderBottomWidth: 1,

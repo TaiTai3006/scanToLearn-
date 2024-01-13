@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert,ScrollView } from "react-native";
-import { RadioButton } from "react-native-paper";
+
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/FontAwesome";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Sample questions data
 const sampleQuestions = [
@@ -165,43 +166,24 @@ const TestScreen = ({ route }) => {
     setQuestions(randomQuestions);
   }, [route.params.numberOfQuestions, route.params.selectedQuestionType]);
   
+  const [showAnswers, setShowAnswers] = useState(false);
 
-  const handleQuizCompletion = () => {
-    // Check user answers and calculate the score
-    let score = 0;
-
-    questions.forEach((question) => {
-      const userAnswer = userAnswers[question.id];
-
-      if (userAnswer !== undefined) {
-        if (
-          (question.type === "trueFalse" ||
-            question.type === "fillInTheBlank") &&
-          userAnswer === question.answer
-        ) {
-          score++;
-        } else if (
-          question.type === "multipleChoice" &&
-          userAnswer === question.answer
-        ) {
-          score++;
-        }
-      }
-    });
-
-    // Display the score or any other completion action
-    Alert.alert("Quiz Completed", `Your score: ${score}/${questions.length}`);
-  };
-
+    const handleQuizCompletion = () => {
+     
+      setShowAnswers(true);
+  
+     
+      navigation.navigate("TestResult", { questions, userAnswers });
+    };
+    
+    
   return (
     <View style={styles.container}>
+     <View style={styles.header_container}>
       <TouchableOpacity onPress={handleGoBack}>
-        <Icon
-          style={[styles.icon, { color: "#ffffff" }]}
-          name="close"
-          size={25}
-        />
+        <Ionicons style={ { color: "#fff" }} name="close" size={25} />
       </TouchableOpacity>
+      </View>
       
       <ScrollView
         style={styles.body_container}
@@ -259,6 +241,19 @@ const styles = StyleSheet.create({
     padding: 16,
     // justifyContent: "center",
     backgroundColor: "#0A092B",
+  },
+  header_container: {
+    color: "#ffffff",
+    borderBottomColor: "#4B5673",
+    borderBottomWidth : 3,
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    paddingBottom: 10,
+    justifyContent: "flex-start",
+    flexDirection: "row",
   },
   title: {
     fontSize: 24,
