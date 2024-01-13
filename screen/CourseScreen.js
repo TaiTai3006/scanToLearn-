@@ -50,23 +50,23 @@
         closeModal();
     };
     
-        const takePicture = async () => {
-          let result = await ImagePicker.launchCameraAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [1, 1],
-              quality: 1,
-          });
+    const takePicture = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
 
-          if (!result.cancelled && result.assets && result.assets.length > 0) {
-              const uri = result.assets[0].uri;
-              console.log('Captured image URI: ', uri);
-              setImageUri(uri);
-              await uploadImageToFirebase(uri);
-          } else {
-              console.error('No URI found in camera response');
-          }
-      };
+        if (!result.cancelled && result.assets && result.assets.length > 0) {
+            const uri = result.assets[0].uri;
+            console.log('Captured image URI: ', uri);
+            setImageUri(uri);
+            await uploadImageToFirebase(uri);
+        } else {
+            console.error('No URI found in camera response');
+        }
+    };
       const uploadImageToFirebase = async (uri) => {
         if (!uri) {
             console.error("Invalid URI passed to upload function");
@@ -119,23 +119,26 @@
                 </TouchableOpacity>
             </View>
             <View style={styles.content}>
-                <View style={styles.inputContainer}>
-                    <TextInput 
-                        style={styles.input} 
-                        placeholder="Title" 
-                        placeholderTextColor="#ffffff" 
-                        textAlignVertical="bottom"
-                    />
+            <View style={styles.inputContainer}>
+                <TextInput 
+                style={styles.input} 
+                placeholder="Title" 
+                placeholderTextColor="#ffffff" 
+                textAlignVertical="bottom"
+                />
+            </View>
+            <View style={styles.imageRowContainer}>
+                {imageUri ? (
+                <View style={styles.imagePreviewContainer}>
+                    <Image source={{ uri: imageUri }} style={styles.image} />
                 </View>
+                ) : null}
                 <TouchableOpacity style={styles.imageUpload} onPress={openModal}>
-                    <View style={styles.imageContainer}>
-                        {imageUri ? (
-                            <Image source={{ uri: imageUri }} style={styles.image} />
-                        ) : (
-                            <Image source={imageIcon} style={styles.imageIcon} />
-                        )}
-                    </View>
+                <View style={styles.imageContainer}>
+                    <Image source={imageIcon} style={styles.imageIcon} />
+                </View>
                 </TouchableOpacity>
+            </View>
             </View>
             <BottomSheetModal
                 isVisible={isModalVisible}
@@ -148,7 +151,7 @@
 
 
 
-    const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0A092D',
@@ -196,33 +199,46 @@
         fontSize: 16,
     },
     imageUpload: {
-        alignSelf: 'flex-start', 
-        marginLeft: 20, 
-        height: 170,
         width: '30%',
         borderWidth: 2,
         borderColor: '#2E3856',
         borderStyle: 'dashed',
         borderRadius: 10,
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        marginBottom: 20
-    },
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        overflow: 'hidden',
+      },
     imageContainer: {
         justifyContent: 'center', 
         alignItems: 'center', 
-        flex: 1, 
+        flex: 1,    
     },
     imageIcon: {
         width: 40, 
         height: 40, 
         resizeMode: 'contain' 
     },
-    image: {
-      width: '100%',
-      height: '100%',
-      resizeMode: 'cover',
-  },
-    });
+    imageRowContainer: {
+        flexDirection: 'row',
+        alignItems: 'center', 
+        justifyContent: 'flex-start',
+        height: 170, 
+      },
+      imagePreviewContainer: {
+        width: '30%',
+        borderWidth: 2,
+        borderColor: '#2E3856',
+        borderStyle: 'dashed',
+        borderRadius: 10,
+        marginRight: 20, 
+        overflow: 'hidden',
+      },
+      image: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover', // Asume you want to fill the area
+      },
+});
+    
 
     export default CourseScreen;
