@@ -15,8 +15,7 @@ import {
   } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useRef } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
-// import { Icon } from 'react-native-elements'
+
 import PreviewCard from "../component/PreviewCard";
 import VideoCard from "../component/VideoCard";
 import RelatedCard from "../component/RelatedCard";
@@ -28,24 +27,28 @@ const PreviewScreen = () => {
     // Navigate back to the previous screen
     navigation.goBack();
   };
-  const [isHeaderVisible, setHeaderVisible] = useState(true);
+  
   const [currentPage, setCurrentPage] = useState(0);
   const handleScrollNext = () => {
     setCurrentPage((currentPage) => currentPage + 1);
+  };
+  const handleCardPress = () => {
+    // Navigate to PreviewScreen when the card is pressed
+    navigation.navigate("TestScreen");
   };
   return (
     <View style={{ flex: 1, backgroundColor: "#0A092B" }}>
       <View style={styles.header_container}>
         <TouchableOpacity onPress={handleGoBack}>
-          <Icon
+          <Ionicons
             style={[styles.icon, { color: "#ffffff" }]}
-            name="arrow-left"
-            size={20}
+            name="arrow-back"
+            size={25}
           />
         </TouchableOpacity>
 
         <Text style={styles.text}>Preview</Text>
-        <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={18} />
+        <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={25} />
       </View>
       <ScrollView
         style={styles.body_container}
@@ -65,7 +68,7 @@ const PreviewScreen = () => {
         <View style={[styles.chip_container]}>
           <Text style={styles.text_title}>Tên học phần</Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("YourScreenName")}
+            onPress={() => navigation.navigate("TestScreen")}
           >
             <Chip
             icon={() => <Ionicons name="document" color="#CACEE4" size ={18}/>}
@@ -77,7 +80,7 @@ const PreviewScreen = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("YourScreenName")}
+             onPress={() => navigation.navigate("QuestionSelectionScreen")}
           >
             <Chip
               icon={() => <Ionicons name="book" color="#CACEE4" size ={18}/>}

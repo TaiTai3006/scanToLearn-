@@ -13,17 +13,26 @@ import { Chip } from "react-native-paper";
 const windowWidth = Dimensions.get("window").width;
 import { useNavigation } from "@react-navigation/native";
 // const windowHeight = Dimensions.get("height").height
-const TermCard = () => {
+const TermCard = ({ folderType = false }) => {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-   
     navigation.navigate('PreviewScreen');
   };
   return (
     <View>
-      <TouchableOpacity style={styles.card} onPress={handleCardPress}>
-        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+      <TouchableOpacity
+        style={[
+          styles.card,
+          {
+            width: windowWidth * (folderType ? 0.9 : 0.8),
+            marginLeft: folderType ? 0 : 15,
+            marginBottom: folderType ? 15 : 0,
+          },
+        ]}
+        onPress={handleCardPress}
+      >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Image
             style={styles.tinyLogo}
             source={{
@@ -51,8 +60,6 @@ const TermCard = () => {
 const styles = StyleSheet.create({
   card: {
     height: windowWidth * 0.4,
-    width: windowWidth * 0.8,
-    marginLeft: 15,
     borderColor: "#4B526C",
     borderWidth: 2,
     borderRadius: 20,

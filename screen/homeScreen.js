@@ -19,7 +19,7 @@ import TermCard from "../component/TermCard";
 import { useState, useRef } from "react";
 
 const { width: screenWidth } = Dimensions.get("window");
-const homeScreen = () => {
+const HomeScreen = () => {
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const handleScroll = (event) => {
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeScreen;
+export default HomeScreen;
