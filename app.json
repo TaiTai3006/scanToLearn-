@@ -15,7 +15,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to your camera for taking pictures.",
+        "NSPhotoLibraryUsageDescription": "We need access to your photo library for selecting images."
+       
+    }
     },
     "android": {
       "adaptiveIcon": {

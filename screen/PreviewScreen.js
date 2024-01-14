@@ -10,9 +10,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-  } from "react-native-responsive-screen";
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useRef } from "react";
 
@@ -27,15 +27,12 @@ const PreviewScreen = () => {
     // Navigate back to the previous screen
     navigation.goBack();
   };
-  
+
   const [currentPage, setCurrentPage] = useState(0);
   const handleScrollNext = () => {
     setCurrentPage((currentPage) => currentPage + 1);
   };
-  const handleCardPress = () => {
-    // Navigate to PreviewScreen when the card is pressed
-    navigation.navigate("TestScreen");
-  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#0A092B" }}>
       <View style={styles.header_container}>
@@ -48,7 +45,9 @@ const PreviewScreen = () => {
         </TouchableOpacity>
 
         <Text style={styles.text}>Preview</Text>
-        <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={25} />
+        <TouchableOpacity onPress={handleGoBack}>
+          <Ionicons name="ellipsis-horizontal" color="#CACEE4" size={25} />
+        </TouchableOpacity>
       </View>
       <ScrollView
         style={styles.body_container}
@@ -67,11 +66,11 @@ const PreviewScreen = () => {
 
         <View style={[styles.chip_container]}>
           <Text style={styles.text_title}>Tên học phần</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("TestScreen")}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("TestScreen")}>
             <Chip
-            icon={() => <Ionicons name="document" color="#CACEE4" size ={18}/>}
+              icon={() => (
+                <Ionicons name="document" color="#CACEE4" size={18} />
+              )}
               style={[styles.chip_border, { marginBottom: 10 }]}
               textStyle={styles.chip_text}
             >
@@ -80,10 +79,10 @@ const PreviewScreen = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-             onPress={() => navigation.navigate("QuestionSelectionScreen")}
+            onPress={() => navigation.navigate("QuestionSelectionScreen")}
           >
             <Chip
-              icon={() => <Ionicons name="book" color="#CACEE4" size ={18}/>}
+              icon={() => <Ionicons name="book" color="#CACEE4" size={18} />}
               style={[styles.chip_border]}
               textStyle={styles.chip_text}
             >
@@ -96,7 +95,9 @@ const PreviewScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate("YourScreenName")}
           >
-            <Text style={[styles.text_title, { color: "#B0B4F3" }]}>See all</Text>
+            <Text style={[styles.text_title, { color: "#B0B4F3" }]}>
+              See all
+            </Text>
           </TouchableOpacity>
         </View>
         <FlatList
@@ -112,7 +113,9 @@ const PreviewScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate("YourScreenName")}
           >
-            <Text style={[styles.text_title, { color: "#B0B4F3" }]}>See all</Text>
+            <Text style={[styles.text_title, { color: "#B0B4F3" }]}>
+              See all
+            </Text>
           </TouchableOpacity>
         </View>
         <FlatList
@@ -156,9 +159,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     marginBottom: 8,
-    
   },
-  card_header:{
+  card_header: {
     justifyContent: "space-between",
     flexDirection: "row",
     marginRight: wp("5%"), // Adjust the percentage as needed
@@ -185,6 +187,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#303855",
     borderRadius: 10,
   },
-  
 });
 export default PreviewScreen;
