@@ -1,6 +1,6 @@
 // SettingsScreen.js
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Switch, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Switch, TouchableOpacity, SafeAreaView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -18,7 +18,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header_container}>
         <Ionicons
           style={[styles.icon, { color: "#ffffff" }]}
@@ -63,7 +63,7 @@ const SettingsScreen = () => {
           ios_backgroundColor="#4B5673"
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
