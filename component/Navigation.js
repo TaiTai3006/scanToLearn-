@@ -11,7 +11,7 @@ import PreviewScreen from "../screen/PreviewScreen";
 import TestScreen from "../screen/TestScreen";
 import QuestionSelectionScreen from "../screen/QuestionSelectionScreen";
 import SettingsScreen from "../screen/SettingsScreen";
-
+// import FolderListScreen from "../screen/FolderListScreen";
 import TestResult from "../screen/TestResult";
 
 import LibraryScreen from "../screen/LibraryScreen";
@@ -143,6 +143,7 @@ export const Navigation = () => {
           />
           <Stack.Screen name="TestResult" component={TestResult} />
           <Stack.Screen name="CourseScreen" component={CourseScreen} />
+          {/* <Stack.Screen name="FolderListScreen" component={FolderListScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
