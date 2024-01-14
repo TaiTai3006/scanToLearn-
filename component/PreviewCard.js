@@ -10,18 +10,20 @@ import {
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Chip } from "react-native-paper";
+import { connect } from 'react-redux';
+
 // const windowWidth = Dimensions.get("window").width;
-const PreviewCard = ({ onPress }) => {
+const PreviewCard = ({ onPress, courses  }) => {
   return (
     <View>
+
+      
       <TouchableOpacity onPress={onPress} style={styles.preview_card}>
-        <View style={styles.card_container}>
-            
-          <Image
-            style={styles.preview_logo}
-            source={require('../assets/images/paper.jpg')}
-          />
-        </View>
+        {courses.images.map((uri, index) => (
+          <View key={index} style={styles.imagePreviewContainer}>
+            <Image source={{ uri }} style={styles.image} />
+          </View>
+        ))}
       </TouchableOpacity>
     </View>
   );
@@ -34,11 +36,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 2,
     marginBottom: 10,
+    flexDirection:"row"
   },
   card_container: {
     // height: 120,
   },
-  preview_logo:{
+  preview_logo: {
     maxHeight: 140,
     maxWidth: 100,
   },
@@ -48,7 +51,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 10,
   },
- 
+  image:{
+    width: 100,
+    height : 140,
+    margin: 10,
+  },
+  imagePreviewContainer:{
+    flexDirection: "row",
+    alignItems:"center",
+    justifyContent: "center",
+  }
+});
+const mapStateToProps = (state) => ({
+  courses: state.courses,
 });
 
-export default PreviewCard;
+export default connect(mapStateToProps)(PreviewCard);
+

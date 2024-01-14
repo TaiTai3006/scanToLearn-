@@ -8,6 +8,7 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
+  Image
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -21,12 +22,19 @@ import VideoCard from "../component/VideoCard";
 import RelatedCard from "../component/RelatedCard";
 import { Chip } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
-const PreviewScreen = () => {
+import { connect } from 'react-redux';
+const PreviewScreen = ({ courses }) => {
+  console.log(courses.title)
+ 
   const navigation = useNavigation();
   const handleGoBack = () => {
     // Navigate back to the previous screen
     navigation.goBack();
   };
+
+      
+    
+
 
   const [currentPage, setCurrentPage] = useState(0);
   const handleScrollNext = () => {
@@ -35,6 +43,20 @@ const PreviewScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0A092B" }}>
+     
+      {/* <TouchableOpacity onPress={handleGoBack}>
+          <Ionicons
+            style={[styles.icon, { color: "#ffffff" }]}
+            name="arrow-back"
+            size={25}
+          />
+        </TouchableOpacity>
+      <Text style={styles.text}>Display Page</Text>
+      <Text style={styles.text}> {courses.title}</Text> */}
+     
+     
+     
+    
       <View style={styles.header_container}>
         <TouchableOpacity onPress={handleGoBack}>
           <Ionicons
@@ -56,7 +78,7 @@ const PreviewScreen = () => {
       >
         <FlatList
           style={{ marginLeft: 5 }}
-          data={[...Array(20)]}
+          data={[...Array(1)]}
           renderItem={({ item }) => <PreviewCard />}
           pagingEnabled={true}
           onScroll={handleScrollNext}
@@ -65,7 +87,8 @@ const PreviewScreen = () => {
         />
 
         <View style={[styles.chip_container]}>
-          <Text style={styles.text_title}>Tên học phần</Text>
+        {/* <Text style={styles.text_title}> {courses.title}</Text> */}
+          <Text style={styles.text_title}>{`Tên học phần ${courses.title}`}</Text>
           <TouchableOpacity onPress={() => navigation.navigate("TestScreen")}>
             <Chip
               icon={() => (
@@ -187,5 +210,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#303855",
     borderRadius: 10,
   },
+  
 });
-export default PreviewScreen;
+const mapStateToProps = (state) => ({
+  courses: state.courses,
+});
+
+export default connect(mapStateToProps)(PreviewScreen);

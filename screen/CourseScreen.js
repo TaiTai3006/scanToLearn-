@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Button
 } from "react-native";
 import imageIcon from "./../assets/Image.png";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -15,13 +16,53 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebaseConfig";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { addCourse } from "../redux/actions/courseAction";
+import store from "../redux/reducers/index"
+import { useNavigation } from "@react-navigation/native";
 
-const CourseScreen = ({ navigation }) => {
+
+const CourseScreen = (  ) => {
+    
+   
+    // console.log(courses);
+    const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const [cameraPermission, setCameraPermission] = useState(null);
   const [galleryPermission, setGalleryPermission] = useState(null);
-
+  const [currentPage, setCurrentPage] = useState(0);
   const [imageUris, setImageUris] = useState([]);
+  const dispatch = useDispatch();
+
+  const [inputTitle, setInputTitle] = useState('');
+//   const handleAddCourse = () => {
+   
+//     dispatch(addCourse(inputTitle, imageUris));
+//     // console.log("titile",title);
+    
+//     setInputTitle(''); // Reset inputTitle after adding the course
+//     navigation.navigate("PreviewScreen")
+//   };
+const handleAddCourse = async () => {
+    try {
+      // Upload images to Firebase and get download URLs
+      const downloadURLs = await uploadImagesToFirebase(imageUris);
+
+      // Dispatch the addCourse action with the title and download URLs
+      dispatch(addCourse(inputTitle, downloadURLs));
+
+      // Reset inputTitle and navigate to the preview screen
+      setInputTitle('');
+      navigation.navigate('PreviewScreen');
+    } catch (error) {
+      console.error('Error adding course:', error);
+    }
+  };
+  const handleScrollNext = () => {
+    setCurrentPage((currentPage) => currentPage + 1);
+  };
+
+ 
 
   useEffect(() => {
     (async () => {
@@ -44,28 +85,26 @@ const CourseScreen = ({ navigation }) => {
       aspect: [1, 1],
       quality: 1,
     });
-  
+
     console.log("lib:", result);
-    
+
     if (!result.canceled) {
       let selectedUris = [];
-      
+
       if (result.assets && result.assets.length > 0) {
-        // If assets are available, use them
         selectedUris = result.assets.map((asset) => asset.uri);
       } else if (result.uri) {
-        // If no assets, use the single URI
         selectedUris = [result.uri];
       }
-  
+
       console.log("Captured image URI: ", selectedUris);
-      
+
       setImageUris((prevUris) => [...prevUris, ...selectedUris]);
       await uploadImagesToFirebase(selectedUris);
     } else {
       console.error("No URI found in image library response");
     }
-  
+
     closeModal();
   };
 
@@ -92,38 +131,51 @@ const CourseScreen = ({ navigation }) => {
     }
   };
   const uploadImagesToFirebase = async (uris) => {
-    if (!uris) {
-      console.error("Invalid URIs passed to upload function");
-      return;
-    }
+    const tasks = uris.map(async (uri) => {
+      const filename = uri.match(/\/([^\/]+)$/)[1];
+      const storageRef = ref(storage, `images/${filename}`);
+      const imgBlob = await fetch(uri).then((r) => r.blob());
+      await uploadBytes(storageRef, imgBlob);
+      const downloadURL = await getDownloadURL(storageRef);
+      return downloadURL;
+    });
 
-    try {
-      const tasks = uris.map(async (uri) => {
-        if (!uri) {
-          throw new Error("Invalid URI passed to upload function");
-        }
-
-        const filename = uri.match(/\/([^\/]+)$/)[1];
-        if (!filename) {
-          throw new Error("Could not extract filename from URI");
-        }
-
-        const storageRef = ref(storage, `images/${filename}`);
-        const imgBlob = await fetch(uri).then((r) => r.blob());
-        return uploadBytes(storageRef, imgBlob);
-      });
-
-      const uploadResults = await Promise.all(tasks);
-
-      console.log("Images uploaded to the bucket!");
-      const downloadURLs = await Promise.all(
-        uploadResults.map((uploadTask) => getDownloadURL(uploadTask.ref))
-      );
-      console.log("Files available at", downloadURLs);
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-    }
+    return Promise.all(tasks);
   };
+
+//   const uploadImagesToFirebase = async (uris) => {
+//     if (!uris) {
+//       console.error("Invalid URIs passed to upload function");
+//       return;
+//     }
+
+//     try {
+//       const tasks = uris.map(async (uri) => {
+//         if (!uri) {
+//           throw new Error("Invalid URI passed to upload function");
+//         }
+
+//         const filename = uri.match(/\/([^\/]+)$/)[1];
+//         if (!filename) {
+//           throw new Error("Could not extract filename from URI");
+//         }
+
+//         const storageRef = ref(storage, `images/${filename}`);
+//         const imgBlob = await fetch(uri).then((r) => r.blob());
+//         return uploadBytes(storageRef, imgBlob);
+//       });
+
+//       const uploadResults = await Promise.all(tasks);
+
+//       console.log("Images uploaded to the bucket!");
+//       const downloadURLs = await Promise.all(
+//         uploadResults.map((uploadTask) => getDownloadURL(uploadTask.ref))
+//       );
+//       console.log("Files available at", downloadURLs);
+//     } catch (error) {
+//       console.error("Error uploading image: ", error);
+//     }
+//   };
 
   const bottomSheetOptions = [
     {
@@ -156,8 +208,12 @@ const CourseScreen = ({ navigation }) => {
             placeholder="Title"
             placeholderTextColor="#ffffff"
             textAlignVertical="bottom"
+            onChangeText={(text) => setInputTitle(text)}
+           value={inputTitle}
           />
         </View>
+        <Button title="Add Course" onPress={handleAddCourse} />
+
         <View style={styles.imageRowContainer}>
           {imageUris.length > 0
             ? imageUris.map((uri, index) => (
@@ -173,12 +229,14 @@ const CourseScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      
       <BottomSheetModal
         isVisible={isModalVisible}
         onClose={closeModal}
         options={bottomSheetOptions}
       />
     </View>
+    
   );
 };
 
@@ -271,4 +329,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CourseScreen;
+const mapStateToProps = (state) => ({
+    title: state.courses ? state.courses.title : ' ddaay laf title',
+    images: state.courses ? state.courses.images : [],
+    // courses: state.courses ? state.course : [],
+  });
+  
+  export default connect((state) => ({ courses: state.courses }))(CourseScreen);
