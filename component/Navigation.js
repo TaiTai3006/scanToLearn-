@@ -43,7 +43,7 @@ const NavBar = () => {
   const bottomSheetOptions = [
     {
       iconName: "folder",
-      text: "Học phần",
+      text: "Courses",
       onPress: () => {
         setIsBottomSheetVisible(false);
         navigation.navigate("CourseScreen");
@@ -51,7 +51,7 @@ const NavBar = () => {
     },
     {
       iconName: "file-tray-stacked",
-      text: "Thư mục",
+      text: "Folders",
       onPress: () => {
         setIsBottomSheetVisible(false);
       },

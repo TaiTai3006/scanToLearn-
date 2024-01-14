@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
 
-const FolderCard = () => {
+const FolderCard = ({ title }) => {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
@@ -24,7 +24,7 @@ const FolderCard = () => {
             size={25}
             name="folder-outline"
           />
-          <Text style={styles.text}>21 hoc phan</Text>
+          <Text style={styles.text}>21 Term</Text>
         </View>
         <View style={{ flexDirection: 'column', height: windowWidth * 0.25, justifyContent:'center' }}>
           <View>
@@ -34,7 +34,7 @@ const FolderCard = () => {
                 { fontWeight: "700", fontSize: 25, marginRight: 10 },
               ]}
             >
-             kanji
+            <Text style={styles.title}>{title}</Text>
             </Text>
           </View>
         </View>

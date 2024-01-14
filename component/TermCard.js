@@ -13,12 +13,13 @@ import { Chip } from "react-native-paper";
 const windowWidth = Dimensions.get("window").width;
 import { useNavigation } from "@react-navigation/native";
 // const windowHeight = Dimensions.get("height").height
-const TermCard = ({ folderType = false }) => {
+const TermCard = ({ folderType = false, term }) => {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PreviewScreen');
+    navigation.navigate('PreviewScreen', { termId: term.id }); // Assuming you have a DetailScreen to navigate to.
   };
+  
   return (
     <View>
       <TouchableOpacity
@@ -35,13 +36,11 @@ const TermCard = ({ folderType = false }) => {
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Image
             style={styles.tinyLogo}
-            source={{
-              uri: "https://meetingtomorrow.com/wp-content/uploads/2019/08/TextDocument.png",
-            }}
+            source={{ uri: term.imageUrl }}
           />
 
           <View>
-            <Text style={styles.text}>NIJ Unit 1 Lecture 漢字</Text>
+            <Text style={styles.text}>{term.title}</Text>
             <View style={[styles.chip_container]}>
               <Chip
                 style={[styles.chip_border, { marginRight: 5 }]}
