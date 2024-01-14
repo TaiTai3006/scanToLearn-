@@ -180,12 +180,12 @@ const handleAddCourse = async () => {
   const bottomSheetOptions = [
     {
       iconName: "camera",
-      text: "Máy ảnh",
+      text: "Camera",
       onPress: takePicture,
     },
     {
       iconName: "images",
-      text: "Chọn ảnh từ thư viện",
+      text: "Select Image from Library",
       onPress: selectImageFromLibrary,
     },
   ];
@@ -212,7 +212,7 @@ const handleAddCourse = async () => {
            value={inputTitle}
           />
         </View>
-        <Button title="Add Course" onPress={handleAddCourse} />
+
 
         <View style={styles.imageRowContainer}>
           {imageUris.length > 0
