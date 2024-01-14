@@ -10,16 +10,44 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
-
+import { connect } from "react-redux";
 import HeaderHome from "../component/HeaderHome";
 import FolderCard from "../component/FolderCard";
 import TermCard from "../component/TermCard";
 import { useState, useRef } from "react";
-
+import {
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../firebaseConfig";
 const { width: screenWidth } = Dimensions.get("window");
+import { addTerm } from "../redux/actions/Term.action";
+
 const HomeScreen = () => {
+  // const test = async () => {
+  //   console.log('sdhfghdsgfhdgs')
+  //   const querySnapshot = await getDocs(
+  //     collection(db, "cities", "SF", "landmarks")
+  //   );
+  //   console.log(querySnapshot)
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+      
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   test();
+  // }, []);
+
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const handleScroll = (event) => {
@@ -30,21 +58,7 @@ const HomeScreen = () => {
       setHeaderVisible(true);
     }
   };
-  // console.log(currentPage)
-  // useEffect(()=>{
-  //   const xOffset = currentPage * (screenWidth * 0.4);
-  //     scrollViewRef.current.scrollTo({ x: xOffset, animated: true });
-  // },[currentPage])
-  // const handleScrollNext = (event) => {
-  //   const xOffset = event.nativeEvent.contentOffset.x;
-  //   const newPage = Math.round(xOffset / screenWidth);
 
-  //   // if (newPage !== currentPage) {
-  //   //   setCurrentPage(newPage);
-  //   // }
-  //   scrollViewRef.current.scrollTo({ x: 2 * (screenWidth), animated: true });
-  // }
-  // const scrollViewRef = useRef(null);
   const flatListRef = useRef(null);
   const handleScrollNext = () => {
     setCurrentPage((currentPage) => currentPage + 1);
